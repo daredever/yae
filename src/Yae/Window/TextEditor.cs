@@ -10,7 +10,9 @@ namespace Yae.Window
 {
     internal sealed class TextEditor
     {
+        private readonly int _linesPerPage;
         private readonly FileInfo _file;
+        
         private readonly Header _header;
         private readonly Body _body;
         private readonly Footer _footer;
@@ -18,12 +20,14 @@ namespace Yae.Window
         private readonly LinesBuffer _linesBuffer;
         private readonly Queue<int> _renderQueue = new Queue<int>();
 
-        private Point Cursor = Point.Empty;
-        private int Offset = 0;
+        private Point _cursor = Point.Empty;
+        private int _offset = 0;
 
         public TextEditor(FileInfo file, int linesPerPage = 20)
         {
+            _linesPerPage = linesPerPage;
             _file = file ?? throw new ArgumentNullException(nameof(file));
+
             _header = new Header(_file);
             _body = new Body(linesPerPage);
             _footer = new Footer();
@@ -33,30 +37,34 @@ namespace Yae.Window
 
         private void EnsureWindowSize()
         {
+            // todo
         }
 
         public async Task RunAsync()
         {
             Output.ClearScreen();
             EnsureWindowSize();
-            Cursor = new Point(0, 0);
+            _cursor = new Point(0, 0);
 
             await _header.RenderAsync();
             await _body.RenderAsync();
             await _footer.RenderAsync();
 
             var inputData = await File.ReadAllLinesAsync(_file.FullName);
-            var y = 0;
+            var cursorY = 0;
             foreach (var s in inputData)
             {
-                _linesBuffer.Write(s, y + Offset, 0);
-                _renderQueue.Enqueue(y);
-                y++;
+                _linesBuffer.Write(s, cursorY + _offset, 0);
+                if (cursorY < _linesPerPage)
+                {
+                    _renderQueue.Enqueue(cursorY);
+                }
+
+                cursorY++;
             }
 
-            var x = _linesBuffer.GetLine(_linesBuffer.Size - 1).Length;
-            Cursor = new Point(x, Cursor.Y);
-            Output.MoveCursor(x + 9, 3);
+            _cursor = new Point(0, 0);
+            Output.MoveCursor(9, 3);
 
             try
             {
@@ -85,14 +93,12 @@ namespace Yae.Window
         {
             while (_renderQueue.TryDequeue(out var line))
             {
-                Cursor = new Point(Cursor.X, line);
-
                 Output.HideCursor();
-                Output.MoveCursor(0, Cursor.Y + 3);
+                Output.MoveCursor(0, line + 3);
 
-                await _body.RenderLineAsync(_linesBuffer.GetLine(line + Offset), line + Offset + 1);
+                await _body.RenderLineAsync(_linesBuffer.GetLine(line + _offset), line + _offset + 1);
 
-                Output.MoveCursor(Cursor.X + 9, Cursor.Y + 3);
+                Output.MoveCursor(_cursor.X + 9, _cursor.Y + 3);
                 Output.ShowCursor();
             }
         }
@@ -105,67 +111,70 @@ namespace Yae.Window
                 case ConsoleKey.Escape:
                     return true;
                 case ConsoleKey.Backspace:
-                    _linesBuffer.Remove(Cursor.Y + Offset, Cursor.X - 1);
-                    Cursor = new Point(Cursor.X - 1, Cursor.Y);
-                    _renderQueue.Enqueue(Cursor.Y);
+                    _linesBuffer.Remove(_cursor.Y + _offset, _cursor.X - 1);
+                    _cursor = new Point(_cursor.X - 1, _cursor.Y);
+                    _renderQueue.Enqueue(_cursor.Y);
                     return false;
                 case ConsoleKey.Enter:
-                    var y1 = Cursor.Y + 1;
-                    if (Cursor.Y < _linesBuffer.Size - Offset)
+                    var y1 = _cursor.Y + 1;
+                    if (_cursor.Y < _linesBuffer.Size - _offset)
                     {
-                        if (y1 >= 20)
+                        if (y1 >= _linesPerPage)
                         {
-                            _linesBuffer.NewLine(Cursor.Y + Offset, Cursor.X);
-                            Offset++;
-                            Cursor = new Point(0, Cursor.Y);
-                            for (var i = 0; i <= Cursor.Y; i++)
+                            _linesBuffer.NewLine(_cursor.Y + _offset, _cursor.X);
+                            _offset++;
+                            _cursor = new Point(0, _cursor.Y);
+                            for (var i = _cursor.Y; i >= 0; i--)
                             {
                                 _renderQueue.Enqueue(i);
                             }
                         }
                         else
                         {
-                            _linesBuffer.NewLine(Cursor.Y + Offset, Cursor.X);
-                            for (var i = 19; i > Math.Max(Cursor.Y - 1, 0); i--)
+                            _linesBuffer.NewLine(_cursor.Y + _offset, _cursor.X);
+                            for (var i = _linesPerPage - 1; i > Math.Max(_cursor.Y - 1, 0); i--)
                             {
-                                _renderQueue.Enqueue(i);
+                                if (_linesBuffer.Size - _offset > i)
+                                {
+                                    _renderQueue.Enqueue(i);
+                                }
                             }
 
-                            _renderQueue.Enqueue(Cursor.Y);
+                            _renderQueue.Enqueue(_cursor.Y);
                             _renderQueue.Enqueue(y1);
-                            Cursor = new Point(0, y1);
+                            _cursor = new Point(0, y1);
                         }
                     }
                     else
                     {
-                        _linesBuffer.NewLine(y1 + Offset, Cursor.X);
-                        Cursor = new Point(0, y1);
+                        _linesBuffer.NewLine(y1 + _offset, _cursor.X);
+                        _cursor = new Point(0, y1);
                         _renderQueue.Enqueue(y1);
                     }
 
                     return false;
                 case ConsoleKey.LeftArrow:
-                    var x1 = Cursor.X - 1;
+                    var x1 = _cursor.X - 1;
                     if (x1 < 0)
                     {
-                        _renderQueue.Enqueue(Cursor.Y);
+                        _renderQueue.Enqueue(_cursor.Y);
                     }
                     else
                     {
-                        Cursor = new Point(x1, Cursor.Y);
-                        _renderQueue.Enqueue(Cursor.Y);
+                        _cursor = new Point(x1, _cursor.Y);
+                        _renderQueue.Enqueue(_cursor.Y);
                     }
 
                     return false;
                 case ConsoleKey.UpArrow:
-                    _renderQueue.Enqueue(Cursor.Y);
-                    var y2 = Cursor.Y - 1;
+                    _renderQueue.Enqueue(_cursor.Y);
+                    var y2 = _cursor.Y - 1;
                     if (y2 < 0)
                     {
-                        if (y2 + Offset >= 0)
+                        if (y2 + _offset >= 0)
                         {
-                            Offset--;
-                            for (var i = 19; i >= 0; i--)
+                            _offset--;
+                            for (var i = 0; i < _linesPerPage; i++)
                             {
                                 _renderQueue.Enqueue(i);
                             }
@@ -173,51 +182,54 @@ namespace Yae.Window
                     }
                     else
                     {
-                        Cursor = new Point(Cursor.X, y2);
+                        _cursor = new Point(_cursor.X, y2);
                         _renderQueue.Enqueue(y2);
                     }
 
                     return false;
                 case ConsoleKey.RightArrow:
-                    Cursor = new Point(Cursor.X + 1, Cursor.Y);
-                    _renderQueue.Enqueue(Cursor.Y);
+                    _renderQueue.Enqueue(_cursor.Y);
+                    if (_cursor.X < _linesBuffer.GetLine(_cursor.Y + _offset).Length)
+                    {
+                        _cursor = new Point(_cursor.X + 1, _cursor.Y);
+                    }
 
                     return false;
                 case ConsoleKey.DownArrow:
-                    _renderQueue.Enqueue(Cursor.Y);
+                    _renderQueue.Enqueue(_cursor.Y);
 
-                    var y3 = Cursor.Y + 1;
-                    if (y3 >= _linesBuffer.Size - Offset)
+                    var y3 = _cursor.Y + 1;
+                    if (y3 >= _linesBuffer.Size - _offset)
                     {
                         return false;
                     }
 
-                    if (y3 >= 20)
+                    if (y3 >= _linesPerPage)
                     {
-                        Offset++;
-                        for (var i = 0; i <= Cursor.Y; i++)
+                        _offset++;
+                        for (var i = _cursor.Y; i >= 0; i--)
                         {
                             _renderQueue.Enqueue(i);
                         }
                     }
                     else
                     {
-                        Cursor = new Point(Cursor.X, y3);
+                        _cursor = new Point(_cursor.X, y3);
                         _renderQueue.Enqueue(y3);
                     }
 
                     return false;
                 case ConsoleKey.Delete:
-                    _linesBuffer.Remove(Cursor.Y + Offset, Cursor.X);
-                    _renderQueue.Enqueue(Cursor.Y);
+                    _linesBuffer.Remove(_cursor.Y + _offset, _cursor.X);
+                    _renderQueue.Enqueue(_cursor.Y);
                     return false;
                 case ConsoleKey.End:
-                    Cursor = new Point(_linesBuffer.GetLine(Cursor.Y).Length, Cursor.Y);
-                    _renderQueue.Enqueue(Cursor.Y);
+                    _cursor = new Point(_linesBuffer.GetLine(_cursor.Y + _offset).Length, _cursor.Y);
+                    _renderQueue.Enqueue(_cursor.Y);
                     return false;
                 case ConsoleKey.Home:
-                    Cursor = new Point(0, Cursor.Y);
-                    _renderQueue.Enqueue(Cursor.Y);
+                    _cursor = new Point(0, _cursor.Y);
+                    _renderQueue.Enqueue(_cursor.Y);
                     return false;
                 case ConsoleKey.OemPlus:
                 case ConsoleKey.OemComma:
@@ -284,13 +296,18 @@ namespace Yae.Window
                 case ConsoleKey.Subtract:
                 case ConsoleKey.Decimal:
                 case ConsoleKey.Divide:
-                    _linesBuffer.Write(inputKey.KeyChar.ToString(), Cursor.Y + Offset, Cursor.X);
-                    _renderQueue.Enqueue(Cursor.Y);
-                    Cursor = new Point(Cursor.X + 1, Cursor.Y);
+                    _linesBuffer.Write(inputKey.KeyChar.ToString(), _cursor.Y + _offset, _cursor.X);
+                    _renderQueue.Enqueue(_cursor.Y);
+                    _cursor = new Point(_cursor.X + 1, _cursor.Y);
                     return false;
                 case ConsoleKey.Tab:
-                case ConsoleKey.PageUp:
+                // todo different rendering and storing of ident
+                // _linesBuffer.Write(new string(Chars.Whitespace, 4), Cursor.Y + Offset, Cursor.X);
+                // _renderQueue.Enqueue(Cursor.Y);
+                // Cursor = new Point(Cursor.X + 4, Cursor.Y);
+                // return false;
                 case ConsoleKey.PageDown:
+                case ConsoleKey.PageUp:
                 case ConsoleKey.Insert:
                 case ConsoleKey.F1:
                 case ConsoleKey.F2:
@@ -358,7 +375,7 @@ namespace Yae.Window
                 case ConsoleKey.Pa1:
                 case ConsoleKey.OemClear:
                 default:
-                    _renderQueue.Enqueue(Cursor.Y);
+                    _renderQueue.Enqueue(_cursor.Y);
                     return false;
             }
         }
