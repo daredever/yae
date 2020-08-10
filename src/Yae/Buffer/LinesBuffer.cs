@@ -21,7 +21,7 @@ namespace Yae.Buffer
             _lines[line] = _lines[line].Insert(index, value);
         }
 
-        public void NewLine(int line)
+        public void NewLine(int line, int index = -1)
         {
             var newLines = Enumerable.Repeat(string.Empty, Math.Max(line + 1 - _lines.Count, 0));
             foreach (var newLine in newLines)
@@ -29,7 +29,23 @@ namespace Yae.Buffer
                 _lines.Add(newLine);
             }
 
-            _lines.Insert(line, string.Empty);
+            if (index == -1)
+            {
+                _lines.Insert(line, string.Empty);
+            }
+            else
+            {
+                var copy = _lines[line];
+                if (copy.Length < index + 1)
+                {
+                    _lines.Insert(line + 1, string.Empty);
+                }
+                else
+                {
+                    _lines[line] = _lines[line].Remove(index);
+                    _lines.Insert(line + 1, copy.Substring(index));
+                }
+            }
         }
 
         public void Remove(int line, int index)
