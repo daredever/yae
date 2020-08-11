@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Yae.Buffer
+namespace ConsoleTextEditor
 {
-    internal sealed class LinesBuffer
+    internal sealed class TextBuffer
     {
         private readonly List<string> _lines = new List<string>();
 
@@ -48,6 +48,17 @@ namespace Yae.Buffer
             }
         }
 
+        public void RemoveLine(int line)
+        {
+            var newLines = Enumerable.Repeat(string.Empty, Math.Max(line + 1 - _lines.Count, 0));
+            foreach (var newLine in newLines)
+            {
+                _lines.Add(newLine);
+            }
+
+            _lines.RemoveAt(line);
+        }
+
         public void Remove(int line, int index)
         {
             var newLines = Enumerable.Repeat(string.Empty, Math.Max(line + 1 - _lines.Count, 0));
@@ -68,6 +79,17 @@ namespace Yae.Buffer
             }
 
             return _lines[line];
+        }
+
+        public int GetLineLength(int line)
+        {
+            var newLines = Enumerable.Repeat(string.Empty, Math.Max(line + 1 - _lines.Count, 0));
+            foreach (var newLine in newLines)
+            {
+                _lines.Add(newLine);
+            }
+
+            return _lines[line].Length;
         }
     }
 }

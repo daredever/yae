@@ -1,16 +1,17 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-using Yae.Window;
+using ConsoleTextEditor;
 
-namespace Yae
+namespace YaeTool
 {
     internal static class Program
     {
         public static async Task Main(string[] args)
         {
-            var path = @"C:\Users\shcherbakov\RiderProjects\GitHub\yae\src\Yae\Program.cs";
+            //var path = @"C:\Users\shcherbakov\RiderProjects\GitHub\yae\src\YaeTool\Program.cs";
+            var path = @"C:\Users\shcherbakov\RiderProjects\GitHub\yae\src\ConsoleTextEditor\TextEditor.cs";
             var fileInfo = new FileInfo(path);
-            var linesPerPage = 20;
+            var linesPerPage = 45;
             var textEditor = new TextEditor(fileInfo, linesPerPage);
             await textEditor.RunAsync();
         }

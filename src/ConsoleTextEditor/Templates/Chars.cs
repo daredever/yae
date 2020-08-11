@@ -1,4 +1,4 @@
-﻿namespace Yae.Templates
+﻿namespace ConsoleTextEditor.Templates
 {
     internal static class Chars
     {
