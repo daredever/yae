@@ -12,7 +12,7 @@ namespace ConsoleTextEditor.Templates
         private static readonly Dictionary<string, string> ShortCuts = new Dictionary<string, string>
         {
             {"Esc", "Exit"},
-            {"CTRL+S", "Save"}
+            {"Ctrl+S", "Save"}
         };
 
         public static async Task RenderHeaderAsync(FileInfo file, int screenWidth)
