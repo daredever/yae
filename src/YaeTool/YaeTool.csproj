@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+
+        <PackAsTool>true</PackAsTool>
+        <ToolCommandName>yae</ToolCommandName>
+        <PackageOutputPath>./nupkg</PackageOutputPath>
+        <PackageVersion>0.0.1</PackageVersion>        
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ConsoleTextEditor\ConsoleTextEditor.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="3.0.0" />
+    </ItemGroup>
+
+</Project>
