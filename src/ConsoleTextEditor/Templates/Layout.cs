@@ -12,7 +12,7 @@ namespace ConsoleTextEditor.Templates
         private static readonly Dictionary<string, string> ShortCuts = new Dictionary<string, string>
         {
             {"Esc", "Exit"},
-            //{"CTRL+S", "Save"}
+            {"CTRL+S", "Save"}
         };
 
         public static async Task RenderHeaderAsync(FileInfo file, int screenWidth)
@@ -27,7 +27,7 @@ namespace ConsoleTextEditor.Templates
             foreach (var (key, value) in ShortCuts)
             {
                 await Output.WriteAsync($"{Chars.Whitespace}[{key}]{Chars.Whitespace}", ConsoleColor.Magenta);
-                await Output.WriteAsync($"{value}{new string(Chars.Whitespace, 2)}");
+                await Output.WriteAsync($"{value}{Chars.Whitespace}");
             }
 
             await Output.WriteLineAsync(string.Empty);

@@ -65,6 +65,7 @@ namespace ConsoleTextEditor
         private async Task InitAsync()
         {
             Output.ClearScreen();
+            Output.SetEncoding();
 
             await Layout.RenderHeaderAsync(_file, ScreenWidth);
             await Layout.RenderBodyAsync(_linesPerPage, ScreenWidth);
@@ -94,13 +95,25 @@ namespace ConsoleTextEditor
             Output.ShowCursor();
         }
 
-        private Task<bool> WaitInputKeyAsync()
+        private Task SaveFileAsync()
+        {
+            return File.WriteAllLinesAsync(_file.FullName, _textBlock.GetAllLines());
+        }
+
+        private async Task<bool> WaitInputKeyAsync()
         {
             var inputKey = Input.ReadKey();
+
+            if ((inputKey.Modifiers & ConsoleModifiers.Control) != 0 && inputKey.Key == ConsoleKey.S)
+            {
+                await SaveFileAsync();
+                return false;
+            }
+
             switch (inputKey.Key)
             {
                 case ConsoleKey.Escape:
-                    return Task.FromResult(true);
+                    return true;
                 case ConsoleKey.Backspace:
                     _textBlock.HandleBackspace();
                     break;
@@ -200,7 +213,7 @@ namespace ConsoleTextEditor
                     break;
             }
 
-            return Task.FromResult(false);
+            return false;
         }
     }
 }

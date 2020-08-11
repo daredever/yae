@@ -38,7 +38,7 @@ namespace ConsoleTextEditor
         public IEnumerable<Line> GetChangedLines()
         {
             var lines = new List<Line>(_linesPerPage);
-            for (var row = 0; row < _linesPerPage; row++)
+            for (var row = 0; row < Math.Min(_linesPerPage, _textBuffer.Size); row++)
             {
                 var line = row + _cursor.Offset;
                 var value = _textBuffer.GetLine(line);
@@ -46,6 +46,14 @@ namespace ConsoleTextEditor
             }
 
             return lines;
+        }
+
+        public IEnumerable<string> GetAllLines()
+        {
+            for (var line = 0; line < _textBuffer.Size; line++)
+            {
+                yield return _textBuffer.GetLine(line);
+            }
         }
 
         public void HandleSkippedKeys(ConsoleKeyInfo inputKey)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Threading.Tasks;
 using ConsoleTextEditor.Templates;
 
@@ -45,5 +46,7 @@ namespace ConsoleTextEditor.Utils
         public static void ShowCursor() => Console.CursorVisible = true;
 
         public static void ClearScreen() => Console.Clear();
+
+        public static void SetEncoding() => Console.OutputEncoding = Encoding.UTF8;
     }
 }
