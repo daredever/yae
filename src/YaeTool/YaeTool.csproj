@@ -17,9 +17,5 @@
     <ItemGroup>
       <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="3.0.0" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Compile Remove="Class.cs" />
-    </ItemGroup>
-
+    
 </Project>
