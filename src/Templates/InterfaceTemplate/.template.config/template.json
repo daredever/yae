@@ -1,0 +1,23 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "Roman Shcherbakov (daredever.net)",
+    "classifications": [
+        "Common",
+        "Code"
+    ],
+    "identity": "Yae.InterfaceTemplate.CSharp",
+    "name": "Interface.cs file",
+    "shortName": "interface",
+    "tags": {
+        "language": "C#",
+        "type": "item"
+    },
+    "symbols": {
+        "title": {
+            "type": "parameter",
+            "datatype": "string",
+            "replaces": "Interface",
+            "fileRename": "Interface"
+        }
+    }
+}

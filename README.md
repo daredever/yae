@@ -85,3 +85,30 @@ yae -n 30 -f C:\file.txt
 Editor window:
 
 ![editor](docs/images/yae.png)
+
+### Templates
+
+There are 4 file templates:
+- Class
+- Enum
+- Interface
+- Struct
+
+All of them create file in the current directory and a base type content.
+
+To install:
+```text
+cd src
+dotnet new -i .Templates/ClassTemplate
+dotnet new -i .Templates/EnumTemplate
+dotnet new -i .Templates/InterfaceTemplate
+dotnet new -i .Templates/StructTemplate
+```
+
+To use:
+```text
+dotnet new class -t Car
+dotnet new enum -t Color
+dotnet new interface -t IPerson
+dotnet new struct -t Point
+```

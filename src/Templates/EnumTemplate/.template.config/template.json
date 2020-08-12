@@ -1,0 +1,23 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "Roman Shcherbakov (daredever.net)",
+    "classifications": [
+        "Common",
+        "Code"
+    ],
+    "identity": "Yae.EnumTemplate.CSharp",
+    "name": "Enum.cs file",
+    "shortName": "enum",
+    "tags": {
+        "language": "C#",
+        "type": "item"
+    },
+    "symbols": {
+        "title": {
+            "type": "parameter",
+            "datatype": "string",
+            "replaces": "Enum",
+            "fileRename": "Enum"
+        }
+    }
+}
