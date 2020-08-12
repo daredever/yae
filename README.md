@@ -50,3 +50,7 @@ dotnet yae -f file.txt
 dotnet yae -f C:\file.txt
 dotnet yae -n 30 -f C:\file.txt
 ```
+
+Editor window:
+
+![editor](docs/images/yae.png)
