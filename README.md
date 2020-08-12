@@ -59,8 +59,8 @@ Options:
 
 - get help :  *-h | --help*
 - get version : *-v | --version*
-- open file : *-f | --file Path/To/File*
-- set editor lines per page count : *-n | --count LinesPerPageCount*
+- open file : *-f | --file \<FILE\>*
+- set editor lines per page count : *-n | --count \<COUNT\>*
 
 Examples for local tool:
  
@@ -85,3 +85,36 @@ yae -n 30 -f C:\file.txt
 Editor window:
 
 ![editor](docs/images/yae.png)
+
+### Templates
+
+There are 4 file templates:
+- Class
+- Enum
+- Interface
+- Struct
+
+All of them create files in the current directory and a base type content.
+
+To install:
+```text
+cd src
+dotnet new -i .Templates/ClassTemplate
+dotnet new -i .Templates/EnumTemplate
+dotnet new -i .Templates/InterfaceTemplate
+dotnet new -i .Templates/StructTemplate
+```
+
+To use:
+```text
+dotnet new class -t Car
+dotnet new enum -t Color
+dotnet new interface -t IPerson
+dotnet new struct -t Point
+```
+
+Options:
+
+- set namespace (default current directory) :  *-n \<NAMESPACE\>*
+- set output (default current directory) : *-o \<OUTPUT\>* 
+- set type name : *-t \<TYPE_NAME\>*
