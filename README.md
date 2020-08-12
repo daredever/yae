@@ -4,8 +4,29 @@
 
 Console-based text editor tool for .NET Core CLI.
 
-### Build
+### Install
+
+Yae uses [.NET Core CLI](https://docs.microsoft.com/en-us/dotnet/core/tools/) toolchain for installing.
+
+#### global tool
+
+To install tool:
  
+```text
+git clone https://github.com/daredever/yae.git
+cd src/YaeTool/
+dotnet pack
+dotnet tool install --global --add-source ./nupkg YaeTool
+```
+
+To uninstall tool:
+ 
+```text
+dotnet tool uninstall -g YaeTool
+```
+ 
+#### local tool
+
 To setup tool for all directories first run:
 ```text
 cd \
@@ -41,7 +62,7 @@ Options:
 - open file : *-f | --file Path/To/File*
 - set editor lines per page count : *-n | --count LinesPerPageCount*
 
-Examples:
+Examples for local tool:
  
 ```text
 dotnet yae -h
@@ -49,6 +70,16 @@ dotnet yae -v
 dotnet yae -f file.txt
 dotnet yae -f C:\file.txt
 dotnet yae -n 30 -f C:\file.txt
+```
+
+Examples for global tool:
+ 
+```text
+yae -h
+yae -v
+yae -f file.txt
+yae -f C:\file.txt
+yae -n 30 -f C:\file.txt
 ```
 
 Editor window:
