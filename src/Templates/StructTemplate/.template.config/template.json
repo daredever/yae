@@ -12,12 +12,13 @@
         "language": "C#",
         "type": "item"
     },
+    "sourceName": "Path",
     "symbols": {
-        "title": {
+        "typename": {
             "type": "parameter",
             "datatype": "string",
-            "replaces": "Struct",
-            "fileRename": "Struct"
+            "replaces": "Type",
+            "fileRename": "Type"
         }
     }
 }

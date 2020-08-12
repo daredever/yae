@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Namespace
+namespace Path
 {
-    public enum Enum
+    public class Type
     {
         
     }

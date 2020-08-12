@@ -59,8 +59,8 @@ Options:
 
 - get help :  *-h | --help*
 - get version : *-v | --version*
-- open file : *-f | --file Path/To/File*
-- set editor lines per page count : *-n | --count LinesPerPageCount*
+- open file : *-f | --file \<FILE\>*
+- set editor lines per page count : *-n | --count \<COUNT\>*
 
 Examples for local tool:
  
@@ -94,7 +94,7 @@ There are 4 file templates:
 - Interface
 - Struct
 
-All of them create file in the current directory and a base type content.
+All of them create files in the current directory and a base type content.
 
 To install:
 ```text
@@ -112,3 +112,9 @@ dotnet new enum -t Color
 dotnet new interface -t IPerson
 dotnet new struct -t Point
 ```
+
+Options:
+
+- set namespace (default current directory) :  *-n \<NAMESPACE\>*
+- set output (default current directory) : *-o \<OUTPUT\>* 
+- set type name : *-t \<TYPE_NAME\>*
