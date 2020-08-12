@@ -23,7 +23,7 @@ To install tool:
 git clone https://github.com/daredever/yae.git
 cd src/YaeTool/
 dotnet pack
-dotnet tool install —add-source ./nupkg YaeTool
+dotnet tool install --add-source ./nupkg YaeTool
 ```
 
 To uninstall tool:
