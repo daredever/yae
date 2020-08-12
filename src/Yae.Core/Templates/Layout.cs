@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using ConsoleTextEditor.Utils;
+using Yae.Core.Utils;
 
-namespace ConsoleTextEditor.Templates
+namespace Yae.Core.Templates
 {
     internal static class Layout
     {

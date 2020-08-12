@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Text;
 using System.Threading.Tasks;
-using ConsoleTextEditor.Templates;
+using Yae.Core.Templates;
 
-namespace ConsoleTextEditor.Utils
+namespace Yae.Core.Utils
 {
     // todo thread safe
     internal static class Output

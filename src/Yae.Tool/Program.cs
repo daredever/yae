@@ -1,8 +1,8 @@
 ﻿using System.IO;
-using ConsoleTextEditor;
 using McMaster.Extensions.CommandLineUtils;
+using Yae.Core;
 
-namespace YaeTool
+namespace Yae.Tool
 {
     public sealed class Program
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ConsoleTextEditor.Utils
+namespace Yae.Core.Utils
 {
     internal static class Input
     {

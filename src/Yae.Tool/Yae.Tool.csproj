@@ -7,15 +7,15 @@
         <PackAsTool>true</PackAsTool>
         <ToolCommandName>yae</ToolCommandName>
         <PackageOutputPath>./nupkg</PackageOutputPath>
-        <PackageVersion>0.0.1</PackageVersion>        
+        <PackageVersion>0.0.1</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ConsoleTextEditor\ConsoleTextEditor.csproj" />
+      <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="3.0.0" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="3.0.0" />
+      <ProjectReference Include="..\Yae.Core\Yae.Core.csproj" />
     </ItemGroup>
     
 </Project>

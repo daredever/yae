@@ -1,4 +1,4 @@
-﻿namespace ConsoleTextEditor
+﻿namespace Yae.Core
 {
     internal sealed class Cursor
     {

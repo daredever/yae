@@ -1,19 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{556B75E6-2C2F-4F78-B027-82AC50B4C79F}"
-ProjectSection(SolutionItems) = preProject
-	README.md = README.md
-EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CE42F66C-04C3-49EF-A817-D425F0A22904}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YaeTool", "src\YaeTool\YaeTool.csproj", "{49D7D2B6-1EB2-4F62-85E3-0F0F3494E474}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yae.Tool", "src\Yae.Tool\Yae.Tool.csproj", "{49D7D2B6-1EB2-4F62-85E3-0F0F3494E474}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{9AF00E4C-F588-403D-BE1C-AF2F34792E3B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleTextEditor", "src\ConsoleTextEditor\ConsoleTextEditor.csproj", "{D329E6A4-758B-411C-B635-2CE499BA770C}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{55CF3CBE-B1D8-4326-AD50-0B2B505832E0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yae.Core", "src\Yae.Core\Yae.Core.csproj", "{D329E6A4-758B-411C-B635-2CE499BA770C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

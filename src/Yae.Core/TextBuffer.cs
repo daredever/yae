@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ConsoleTextEditor
+namespace Yae.Core
 {
     internal sealed class TextBuffer
     {

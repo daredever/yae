@@ -1,10 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
-using ConsoleTextEditor.Templates;
-using ConsoleTextEditor.Utils;
+using Yae.Core.Templates;
+using Yae.Core.Utils;
 
-namespace ConsoleTextEditor
+namespace Yae.Core
 {
     public sealed class TextEditor
     {

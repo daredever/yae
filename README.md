@@ -98,11 +98,11 @@ All of them create files in the current directory and a base type content.
 
 To install:
 ```text
-cd src
-dotnet new -i .Templates/ClassTemplate
-dotnet new -i .Templates/EnumTemplate
-dotnet new -i .Templates/InterfaceTemplate
-dotnet new -i .Templates/StructTemplate
+cd src/Yae.Templates
+dotnet new -i ClassTemplate
+dotnet new -i EnumTemplate
+dotnet new -i InterfaceTemplate
+dotnet new -i StructTemplate
 ```
 
 To use:
@@ -114,7 +114,6 @@ dotnet new struct -t Point
 ```
 
 Options:
-
 - set namespace (default current directory) :  *-n \<NAMESPACE\>*
 - set output (default current directory) : *-o \<OUTPUT\>* 
 - set type name : *-t \<TYPE_NAME\>*
