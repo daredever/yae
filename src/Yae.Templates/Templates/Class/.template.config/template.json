@@ -5,9 +5,9 @@
         "Common",
         "Code"
     ],
-    "identity": "Yae.StructTemplate.CSharp",
-    "name": "Struct.cs file",
-    "shortName": "struct",
+    "identity": "Yae.Templates.Class.CSharp",
+    "name": "Class.cs file",
+    "shortName": "class",
     "tags": {
         "language": "C#",
         "type": "item"

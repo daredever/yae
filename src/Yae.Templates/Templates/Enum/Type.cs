@@ -2,7 +2,7 @@
 
 namespace Path
 {
-    public interface Type
+    public enum Type
     {
         
     }

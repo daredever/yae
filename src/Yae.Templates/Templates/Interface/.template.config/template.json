@@ -5,9 +5,9 @@
         "Common",
         "Code"
     ],
-    "identity": "Yae.ClassTemplate.CSharp",
-    "name": "Class.cs file",
-    "shortName": "class",
+    "identity": "Yae.Templates.Interface.CSharp",
+    "name": "Interface.cs file",
+    "shortName": "interface",
     "tags": {
         "language": "C#",
         "type": "item"

@@ -5,9 +5,9 @@
         "Common",
         "Code"
     ],
-    "identity": "Yae.InterfaceTemplate.CSharp",
-    "name": "Interface.cs file",
-    "shortName": "interface",
+    "identity": "Yae.Templates.Enum.CSharp",
+    "name": "Enum.cs file",
+    "shortName": "enum",
     "tags": {
         "language": "C#",
         "type": "item"
