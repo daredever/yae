@@ -11,7 +11,7 @@ namespace Yae.Tool
             var app = new CommandLineApplication();
             app.HelpOption("-h|--help");
             app.VersionOption("-v|--version", "0.0.1");
-            
+
             var optionFile = app.Option("-f|--file <FILE>", "File", CommandOptionType.SingleValue);
             var optionLinesPerPage = app.Option<int>("-n|--count <N>", "Lines per page", CommandOptionType.SingleValue);
 
