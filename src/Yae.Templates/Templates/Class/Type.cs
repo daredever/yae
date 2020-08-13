@@ -2,7 +2,7 @@
 
 namespace Path
 {
-    public enum Type
+    public class Type
     {
         
     }

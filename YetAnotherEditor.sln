@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yae.Tool", "src\Yae.Tool\Ya
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yae.Core", "src\Yae.Core\Yae.Core.csproj", "{D329E6A4-758B-411C-B635-2CE499BA770C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yae.Templates", "src\Yae.Templates\Yae.Templates.csproj", "{30F8C5C5-670F-4AB2-8A50-75FA575EFDB8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,9 +22,14 @@ Global
 		{D329E6A4-758B-411C-B635-2CE499BA770C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D329E6A4-758B-411C-B635-2CE499BA770C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D329E6A4-758B-411C-B635-2CE499BA770C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30F8C5C5-670F-4AB2-8A50-75FA575EFDB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30F8C5C5-670F-4AB2-8A50-75FA575EFDB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30F8C5C5-670F-4AB2-8A50-75FA575EFDB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30F8C5C5-670F-4AB2-8A50-75FA575EFDB8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{49D7D2B6-1EB2-4F62-85E3-0F0F3494E474} = {CE42F66C-04C3-49EF-A817-D425F0A22904}
 		{D329E6A4-758B-411C-B635-2CE499BA770C} = {CE42F66C-04C3-49EF-A817-D425F0A22904}
+		{30F8C5C5-670F-4AB2-8A50-75FA575EFDB8} = {CE42F66C-04C3-49EF-A817-D425F0A22904}
 	EndGlobalSection
 EndGlobal

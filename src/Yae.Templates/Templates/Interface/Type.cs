@@ -2,7 +2,7 @@
 
 namespace Path
 {
-    public struct Type
+    public interface Type
     {
         
     }

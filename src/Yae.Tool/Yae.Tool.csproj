@@ -3,19 +3,27 @@
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>netcoreapp3.1</TargetFramework>
-
+    </PropertyGroup>
+    
+    <PropertyGroup>
+        <!-- Properties related to NuGet packaging: -->
         <PackAsTool>true</PackAsTool>
         <ToolCommandName>yae</ToolCommandName>
-        <PackageOutputPath>./nupkg</PackageOutputPath>
-        <PackageVersion>0.0.1</PackageVersion>
+        <PackageId>Yae.Tool</PackageId>
+        <Version>0.0.1</Version>
+        <Title>Yet another editor</Title>
+        <Description>Console-based text editor tool for .NET Core CLI.</Description>    
+        <Authors>Shcherbakov Roman</Authors>
+        <PackageTags>yae;editor;text-editor;console;dotnet-tool</PackageTags>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/daredever/yae</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/daredever/yae</RepositoryUrl>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="3.0.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\Yae.Core\Yae.Core.csproj" />
+      <PackageReference Include="Yae.Core" Version="0.0.1" />
     </ItemGroup>
     
 </Project>

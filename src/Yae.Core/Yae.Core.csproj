@@ -4,4 +4,20 @@
         <TargetFramework>netcoreapp3.1</TargetFramework>
     </PropertyGroup>
 
+    <PropertyGroup>
+        <!-- Properties related to NuGet packaging: -->
+        <IsPackable>True</IsPackable>
+        <PackageId>Yae.Core</PackageId>
+        <Version>0.0.1</Version>
+        <Title>Yet another editor</Title>
+        <Description>Console-based text editor.</Description>
+        <PackageTags>log;logging;performance</PackageTags>
+        <Authors>Shcherbakov Roman</Authors>
+        <PackageTags>yae;editor;text-editor;console</PackageTags>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/daredever/yae</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/daredever/yae</RepositoryUrl>
+    </PropertyGroup>
+
 </Project>

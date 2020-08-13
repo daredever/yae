@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <!-- Properties related to NuGet packaging: -->
+        <PackageType>Template</PackageType>
+        <PackageVersion>0.0.1</PackageVersion>
+        <PackageId>Yae.Templates</PackageId>
+        <Title>Yet another editor templates</Title>
+        <Description>Templates to use when creating *.cs files.</Description>
+        <Authors>Shcherbakov Roman</Authors>
+        <PackageTags>dotnet-new;templates;yae</PackageTags>
+        <IncludeContentInPack>true</IncludeContentInPack>
+        <IncludeBuildOutput>false</IncludeBuildOutput>
+        <ContentTargetFolders>content</ContentTargetFolders>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/daredever/yae</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/daredever/yae</RepositoryUrl>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Content Include="Templates\**\*" Exclude="Templates\**\bin\**;Templates\**\obj\**" />
+        <Compile Remove="**\*" />
+    </ItemGroup>
+
+</Project>

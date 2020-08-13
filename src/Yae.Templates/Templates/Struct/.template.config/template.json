@@ -5,9 +5,9 @@
         "Common",
         "Code"
     ],
-    "identity": "Yae.EnumTemplate.CSharp",
-    "name": "Enum.cs file",
-    "shortName": "enum",
+    "identity": "Yae.Templates.Struct.CSharp",
+    "name": "Struct.cs file",
+    "shortName": "struct",
     "tags": {
         "language": "C#",
         "type": "item"
