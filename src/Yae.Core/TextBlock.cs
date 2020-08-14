@@ -80,11 +80,6 @@ namespace Yae.Core
             _previousCursorX = _cursor.X;
         }
 
-        public void HandleDelete()
-        {
-            _textBuffer.Remove(_cursor.AbsoluteY, _cursor.X);
-        }
-
         public void HandleDownArrow()
         {
             if (_cursor.AbsoluteY + 1 >= _textBuffer.Size)
@@ -170,7 +165,22 @@ namespace Yae.Core
 
         public void HandleBackspace()
         {
+            if (_cursor.X - 1 < 0)
+            {
+                return;
+            }
+
             _cursor.X--;
+            _textBuffer.Remove(_cursor.AbsoluteY, _cursor.X);
+        }
+
+        public void HandleDelete()
+        {
+            if (_cursor.X >= _textBuffer.GetLineLength(_cursor.AbsoluteY))
+            {
+                return;
+            }
+
             _textBuffer.Remove(_cursor.AbsoluteY, _cursor.X);
         }
     }
