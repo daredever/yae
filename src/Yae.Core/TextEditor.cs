@@ -104,10 +104,17 @@ namespace Yae.Core
         {
             var inputKey = Input.ReadKey();
 
-            if ((inputKey.Modifiers & ConsoleModifiers.Control) != 0 && inputKey.Key == ConsoleKey.S)
+            switch (inputKey.Modifiers)
             {
-                await SaveFileAsync();
-                return false;
+                case ConsoleModifiers.Alt:
+                    return false;
+                case ConsoleModifiers.Control:
+                    if (inputKey.Key == ConsoleKey.S)
+                    {
+                        await SaveFileAsync();
+                    }
+
+                    return false;
             }
 
             switch (inputKey.Key)
