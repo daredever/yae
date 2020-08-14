@@ -40,11 +40,18 @@ namespace Yae.Core
         public IEnumerable<Line> GetChangedLines()
         {
             var lines = new List<Line>(_linesPerPage);
-            for (var row = 0; row < Math.Min(_linesPerPage, _textBuffer.Size); row++)
+            for (var row = 0; row < Math.Min(_linesPerPage, _textBuffer.Size - _cursor.Offset); row++)
             {
                 var line = row + _cursor.Offset;
                 var value = _textBuffer.GetLine(line);
                 lines.Add(new Line(line, value, row));
+            }
+
+            for (var row = _textBuffer.Size - _cursor.Offset;
+                row < Math.Max(_linesPerPage, _textBuffer.Size - _cursor.Offset);
+                row++)
+            {
+                lines.Add(new Line(-1, string.Empty, row));
             }
 
             return lines;
@@ -167,21 +174,68 @@ namespace Yae.Core
         {
             if (_cursor.X - 1 < 0)
             {
-                return;
+                if (_cursor.Y - 1 >= 0)
+                {
+                    var removedLine = _textBuffer.GetLine(_cursor.AbsoluteY);
+                    _textBuffer.RemoveLine(_cursor.AbsoluteY);
+                    if (_cursor.Offset > 0 && _cursor.Offset + _linesPerPage >= _textBuffer.Size)
+                    {
+                        _cursor.Offset--;
+                    }
+                    else
+                    {
+                        _cursor.Y--;
+                    }
+
+                    var currentLineLength = _textBuffer.GetLineLength(_cursor.AbsoluteY);
+                    _textBuffer.Write(removedLine, _cursor.AbsoluteY, currentLineLength);
+                    _cursor.X = currentLineLength;
+                }
+                else if (_cursor.AbsoluteY - 1 >= 0)
+                {
+                    var removedLine = _textBuffer.GetLine(_cursor.AbsoluteY);
+                    _textBuffer.RemoveLine(_cursor.AbsoluteY);
+                    if (_cursor.Offset > 0 && _cursor.Offset + _linesPerPage >= _textBuffer.Size)
+                    {
+                        _cursor.Offset--;
+                    }
+                    else
+                    {
+                        _cursor.Offset++;
+                    }
+
+                    var currentLineLength = _textBuffer.GetLineLength(_cursor.AbsoluteY);
+                    _textBuffer.Write(removedLine, _cursor.AbsoluteY, currentLineLength);
+                    _cursor.X = currentLineLength;
+                }
+            }
+            else
+            {
+                _cursor.X--;
+                _textBuffer.Remove(_cursor.AbsoluteY, _cursor.X);
             }
 
-            _cursor.X--;
-            _textBuffer.Remove(_cursor.AbsoluteY, _cursor.X);
+            _previousCursorX = _cursor.X;
         }
 
         public void HandleDelete()
         {
             if (_cursor.X >= _textBuffer.GetLineLength(_cursor.AbsoluteY))
             {
-                return;
+                var removedLineIndex = _cursor.AbsoluteY + 1;
+                if (removedLineIndex < _textBuffer.Size)
+                {
+                    var removedLine = _textBuffer.GetLine(removedLineIndex);
+                    _textBuffer.RemoveLine(removedLineIndex);
+                    _textBuffer.Write(removedLine, _cursor.AbsoluteY, _cursor.X);
+                }
+            }
+            else
+            {
+                _textBuffer.Remove(_cursor.AbsoluteY, _cursor.X);
             }
 
-            _textBuffer.Remove(_cursor.AbsoluteY, _cursor.X);
+            _previousCursorX = _cursor.X;
         }
     }
 }

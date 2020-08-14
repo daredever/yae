@@ -53,9 +53,18 @@ namespace Yae.Core.Templates
 
         public static async Task RenderLineAsync(string inputData, int lineNumber)
         {
-            var rowNumber = lineNumber.ToString().PadLeft(6).PadRight(7) + Chars.Vertical + Chars.Whitespace;
+            var number = lineNumber == 0 ? string.Empty : lineNumber.ToString();
+            var rowNumber = number.PadLeft(6).PadRight(7) + Chars.Vertical + Chars.Whitespace;
             await Output.WriteAsync(rowNumber, ConsoleColor.Gray);
             await Output.WriteAsync(inputData);
+            await Output.ClearLineAsync();
+        }
+
+        public static async Task RenderEmptyLineAsync()
+        {
+            var rowNumber = new string(Chars.Whitespace, 7) + Chars.Vertical + Chars.Whitespace;
+            await Output.WriteAsync(rowNumber, ConsoleColor.Gray);
+            await Output.WriteLineAsync(string.Empty);
             await Output.ClearLineAsync();
         }
     }
