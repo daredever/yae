@@ -37,7 +37,7 @@ Options:
 - open file : *-f | --file \<FILE\>*
 - set editor lines per page count : *-n | --count \<COUNT\>*
 
-Examples for global tool:
+Examples:
  
 ```text
 yae -h
@@ -46,10 +46,6 @@ yae -f file.txt
 yae -f C:\file.txt
 yae -n 30 -f C:\file.txt
 ```
-
-Editor window:
-
-![editor](docs/images/yae.png)
 
 ### Use templates
 
@@ -66,9 +62,27 @@ Options:
 - set output (default current directory) : *-o \<OUTPUT\>* 
 - set type name : *-t \<TYPE_NAME\>*
 
+Examples:
+
 ```text
 dotnet new class -t Car
 dotnet new enum -t Color
 dotnet new interface -t IPerson
 dotnet new struct -t Point
 ```
+
+### Demo
+
+Try it out:
+
+```text
+mkdir YaeDemo
+cd YaeDemo
+dotnet new console
+dotnet new class -t MyClass
+yae -f MyClass.cs
+```
+
+Editor window:
+
+![editor](docs/images/yae.png)
