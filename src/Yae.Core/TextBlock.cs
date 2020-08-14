@@ -10,6 +10,8 @@ namespace Yae.Core
         private readonly TextBuffer _textBuffer;
         private readonly Cursor _cursor;
 
+        private int _previousCursorX = 0;
+
         public TextBlock(int linesPerPage)
         {
             _linesPerPage = linesPerPage;
@@ -69,11 +71,13 @@ namespace Yae.Core
         public void HandleHome()
         {
             _cursor.X = 0;
+            _previousCursorX = _cursor.X;
         }
 
         public void HandleEnd()
         {
             _cursor.X = _textBuffer.GetLineLength(_cursor.AbsoluteY);
+            _previousCursorX = _cursor.X;
         }
 
         public void HandleDelete()
@@ -91,18 +95,14 @@ namespace Yae.Core
             if (_cursor.Y + 1 >= _linesPerPage)
             {
                 _cursor.Offset++;
-                return;
             }
-
-            _cursor.Y++;
-        }
-
-        public void HandleRightArrow()
-        {
-            if (_cursor.X < _textBuffer.GetLineLength(_cursor.AbsoluteY))
+            else
             {
-                _cursor.X++;
+                _cursor.Y++;
             }
+
+            var lineLength = _textBuffer.GetLineLength(_cursor.AbsoluteY);
+            _cursor.X = Math.Clamp(_cursor.X, Math.Min(_previousCursorX, lineLength), lineLength);
         }
 
         public void HandleUpArrow()
@@ -113,11 +113,24 @@ namespace Yae.Core
                 {
                     _cursor.Offset--;
                 }
-
-                return;
+            }
+            else
+            {
+                _cursor.Y--;
             }
 
-            _cursor.Y--;
+            var lineLength = _textBuffer.GetLineLength(_cursor.AbsoluteY);
+            _cursor.X = Math.Clamp(_cursor.X, Math.Min(_previousCursorX, lineLength), lineLength);
+        }
+
+        public void HandleRightArrow()
+        {
+            if (_cursor.X < _textBuffer.GetLineLength(_cursor.AbsoluteY))
+            {
+                _cursor.X++;
+            }
+
+            _previousCursorX = _cursor.X;
         }
 
         public void HandleLeftArrow()
@@ -128,31 +141,31 @@ namespace Yae.Core
             }
 
             _cursor.X--;
+            _previousCursorX = _cursor.X;
         }
 
         public void HandleEnter()
         {
             if (_cursor.AbsoluteY < _textBuffer.Size)
             {
+                _textBuffer.NewLine(_cursor.AbsoluteY, _cursor.X);
                 if (_cursor.Y + 1 >= _linesPerPage)
                 {
-                    _textBuffer.NewLine(_cursor.AbsoluteY, _cursor.X);
                     _cursor.Offset++;
-                    _cursor.X = 0;
                 }
                 else
                 {
-                    _textBuffer.NewLine(_cursor.AbsoluteY, _cursor.X);
-                    _cursor.X = 0;
                     _cursor.Y++;
                 }
             }
             else
             {
-                _cursor.X = 0;
                 _cursor.Y++;
-                _textBuffer.NewLine(_cursor.AbsoluteY, _cursor.X);
+                _textBuffer.NewLine(_cursor.AbsoluteY, 0);
             }
+
+            _cursor.X = 0;
+            _previousCursorX = _cursor.X;
         }
 
         public void HandleBackspace()
