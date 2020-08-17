@@ -23,7 +23,7 @@
 
     <ItemGroup>
       <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="3.0.0" />
-      <PackageReference Include="Yae.Core" Version="0.0.1" />
+      <PackageReference Include="Yae.Core" Version="0.0.2" />
     </ItemGroup>
     
 </Project>
