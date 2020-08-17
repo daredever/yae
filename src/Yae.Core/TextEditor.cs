@@ -34,7 +34,10 @@ namespace Yae.Core
 
             await InitAsync();
 
-            var inputData = await File.ReadAllLinesAsync(_file.FullName);
+            var encoding = await Source.GetEncodingAsync(_file);
+            Output.SetEncoding(encoding);
+
+            var inputData = await Source.ReadAllLinesAsync(_file);
             await _textBlock.InitAsync(inputData);
 
             try
@@ -65,7 +68,6 @@ namespace Yae.Core
         private async Task InitAsync()
         {
             Output.ClearScreen();
-            Output.SetEncoding();
 
             await Layout.RenderHeaderAsync(_file, ScreenWidth);
             await Layout.RenderBodyAsync(_linesPerPage, ScreenWidth);
@@ -104,10 +106,17 @@ namespace Yae.Core
         {
             var inputKey = Input.ReadKey();
 
-            if ((inputKey.Modifiers & ConsoleModifiers.Control) != 0 && inputKey.Key == ConsoleKey.S)
+            switch (inputKey.Modifiers)
             {
-                await SaveFileAsync();
-                return false;
+                case ConsoleModifiers.Alt:
+                    return false;
+                case ConsoleModifiers.Control:
+                    if (inputKey.Key == ConsoleKey.S)
+                    {
+                        await SaveFileAsync();
+                    }
+
+                    return false;
             }
 
             switch (inputKey.Key)

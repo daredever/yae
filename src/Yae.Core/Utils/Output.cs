@@ -47,6 +47,9 @@ namespace Yae.Core.Utils
 
         public static void ClearScreen() => Console.Clear();
 
-        public static void SetEncoding() => Console.OutputEncoding = Encoding.UTF8;
+        public static void SetEncoding(Encoding encoding = null)
+        {
+            Console.OutputEncoding = encoding ?? Encoding.UTF8;
+        }
     }
 }

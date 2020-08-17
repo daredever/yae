@@ -8,7 +8,7 @@
         <!-- Properties related to NuGet packaging: -->
         <IsPackable>True</IsPackable>
         <PackageId>Yae.Core</PackageId>
-        <Version>0.0.1</Version>
+        <Version>0.0.2</Version>
         <Title>Yet another editor</Title>
         <Description>Console-based text editor.</Description>
         <PackageTags>log;logging;performance</PackageTags>
