@@ -10,7 +10,7 @@
         <PackAsTool>true</PackAsTool>
         <ToolCommandName>yae</ToolCommandName>
         <PackageId>Yae.Tool</PackageId>
-        <Version>0.0.1</Version>
+        <Version>0.0.2</Version>
         <Title>Yet another editor</Title>
         <Description>Console-based text editor tool for .NET Core CLI.</Description>    
         <Authors>Shcherbakov Roman</Authors>
