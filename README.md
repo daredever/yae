@@ -32,8 +32,8 @@ dotnet new -u Yae.Templates
 
 Options:
 
-- get help :  *-h | --help*
-- get version : *-v | --version*
+- get help :  *--help*
+- get version : *--version*
 - open file : *-f | --file \<FILE\>*
 - set editor lines per page count : *-n | --count \<COUNT\>*
 
