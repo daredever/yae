@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Yae.Core.Templates;
 using Yae.Core.Utils;
+using Yae.Core.Validators;
 
 namespace Yae.Core
 {
@@ -16,12 +17,10 @@ namespace Yae.Core
         private readonly int _linesPerPage;
         private readonly TextBlock _textBlock;
 
-        public TextEditor(FileInfo file, int linesPerPage = 20)
+        public TextEditor(FileInfo file, int linesPerPage)
         {
-            if (!file.Exists)
-            {
-                throw new FileNotFoundException();
-            }
+            LinesCountValidator.Validate(linesPerPage);
+            FileValidator.Validate(file);
 
             _file = file;
             _linesPerPage = linesPerPage;
@@ -56,7 +55,7 @@ namespace Yae.Core
             catch (Exception ex)
             {
                 await CleanAsync();
-                await Output.WriteLineAsync(ex.Message);
+                throw;
             }
         }
 
@@ -99,6 +98,7 @@ namespace Yae.Core
 
         private Task SaveFileAsync()
         {
+            // todo move to Source utils
             return File.WriteAllLinesAsync(_file.FullName, _textBlock.GetAllLines());
         }
 
