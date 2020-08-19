@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,6 +22,11 @@ namespace Yae.Core.Utils
         public static Task<string[]> ReadAllLinesAsync(FileInfo file)
         {
             return File.ReadAllLinesAsync(file.FullName);
+        }
+
+        public static Task SaveFileAsync(FileInfo file, IEnumerable<string> contents)
+        {
+            return File.WriteAllLinesAsync(file.FullName, contents);
         }
     }
 }

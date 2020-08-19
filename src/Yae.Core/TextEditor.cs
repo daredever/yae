@@ -98,8 +98,7 @@ namespace Yae.Core
 
         private Task SaveFileAsync()
         {
-            // todo move to Source utils
-            return File.WriteAllLinesAsync(_file.FullName, _textBlock.GetAllLines());
+            return Source.SaveFileAsync(_file, _textBlock.GetAllLines());
         }
 
         private async Task<bool> WaitInputKeyAsync()
