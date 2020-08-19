@@ -22,7 +22,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="3.0.0" />
+      <PackageReference Include="CommandLineParser" Version="2.8.0" />
       <PackageReference Include="Yae.Core" Version="0.0.2" />
     </ItemGroup>
     
